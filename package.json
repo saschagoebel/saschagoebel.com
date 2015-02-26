@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "wintersmith": "~2.1.0",
+    "wintersmith-contents": "~0.1.2",
+    "wintersmith-less": "~0.2.3",
+    "wintersmith-robots": "~0.2.6",
+    "wintersmith-sitemap": "~0.2.0"
+  },
+  "name": "saschagoebel.com",
+  "version": "0.0.1",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saschagoebel/saschagoebel.com.git"
+  },
+  "keywords": [
+    "homepage"
+  ],
+  "author": "Sascha Goebel <github@saschagoebel.com>",
+  "bugs": {
+    "url": "https://github.com/saschagoebel/saschagoebel.com/issues"
+  },
+  "homepage": "http://saschagoebel.com/"
+}
