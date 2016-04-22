@@ -1,0 +1,73 @@
+{
+    "parser": "babel-eslint",
+
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "quotes": [
+            2,
+            "single"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+
+        "eqeqeq": [2, "smart"],
+        "no-useless-concat": 1,
+        "no-with": 2,
+        "strict": [2, "global"],
+        "no-use-before-define": 2,
+
+        "global-require": 1,
+        "handle-callback-err": 2,
+        "no-path-concat": 1,
+        "no-process-exit": 1,
+        "no-sync": 2,
+
+        "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+        "camelcase": 1,
+        "comma-spacing": [2, {"before": false, "after": true}],
+        "comma-style": [2, "last"],
+        "eol-last": 1,
+        "new-cap": 1,
+        "no-trailing-spaces": 1,
+
+        "no-this-before-super": 2,
+        "no-var": 1,
+        "object-shorthand": 1,
+        "prefer-arrow-callback": 1,
+        "prefer-const": 1,
+        "prefer-spread": 1,
+        "prefer-template": 1,
+        "require-yield": 2
+    },
+
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+
+    "extends": "eslint:recommended",
+
+    "ecmaFeatures": {
+        "jsx": false,
+        "modules": true,
+        "decorators": true
+    },
+
+    "globals": {
+        "process": {
+            "env": {
+                "NODE_ENV": false
+            }
+        }
+    }
+}

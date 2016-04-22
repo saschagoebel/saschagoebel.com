@@ -1,0 +1,165 @@
+// Color-Scheme: http://www.colourlovers.com/palette/132461/Surface_Of_The_Moon
+
+@color-background: #2B2F30; // Luna
+@color-vcard: darken(#464E4E, 10%);
+@color-vcard-light: lighten(@color-vcard, 15%); // Tidemaker
+@color-vcard-shadow: darken(@color-vcard, 15%); // Tidemaker
+
+@color-b: #6B8586; // Thin Air Rock
+@color-c: #849394; // Satellite Nightlight
+@color-d: #CEDBDB; // Mais non
+@color-background-2: #464E4E; // Tidemaker
+
+@color-text: darken(#FFFFFF, 15%);
+@color-link: lighten(#849394, 10%);
+@color-link-hover: lighten(#849394, 50%);
+
+@import (inline) "./node_modules/normalize.css/normalize.css";
+
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+	background-color: @color-background;
+	color: @color-text;
+}
+
+a {
+    color: @color-link;
+    text-decoration: none;
+    transition: color .5s;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: @color-link-hover;
+    transition: color .5s;
+}
+
+#container {
+	margin: 0 auto;
+    padding: 0 .5em;
+    max-width: 960px;
+    perspective: 600px;
+
+    .card {
+        text-align: center;
+        margin-top: 4em;
+        margin-bottom: 3em;
+    }
+
+    .vcard {
+        display: inline-block;
+        text-align: left;
+        border-top: 1px solid @color-vcard-light;
+        border-left: 1px solid @color-vcard-light;
+        border-bottom: 1px solid @color-vcard-shadow;
+        border-right: 1px solid @color-vcard-shadow;
+        border-radius: 8px;
+        background-color: @color-vcard;
+
+        .photo {
+            width: 128px;
+            height: 128px;
+            border-radius: 96px;
+            margin: .5em;
+            border: 8px solid @color-background-2;
+            float: left;
+        }
+
+
+        .body {
+            padding: .5em 0;
+            margin-left: 192px;
+            margin-right: .5em;
+            line-height: 1.25em;
+
+            .fn {
+                font-size: 1.25em;
+                margin-bottom: .5em;
+                display: inline-block;
+            }
+
+            .contact {
+                display: inline-block;
+                line-height: 1.5em;
+                margin-top: .5em;
+            }
+        }
+    }
+
+    .vcard {
+        transform: rotateY(0deg) rotateX(0deg);
+        transition: transform 1s ease-in-out;
+    }
+
+    .vcard:hover {
+        transform: rotateY(10deg) rotateX(-5deg);
+        transition: transform 1s ease-in-out;
+    }
+
+    @media (max-width: 500px) {
+        .card {
+            margin-top: 1em;
+            margin-bottom: 2em;
+        }
+
+        .vcard {
+            .photo {
+                float: right;
+                width: 64px;
+                height: 64px;
+                border-width: 4px;
+            }
+
+            .body {
+                margin-left: .5em;
+            }
+        }
+    }
+
+    .profiles {
+        text-align: center;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            li {
+                .fa {
+                    vertical-align: middle;
+                    margin-right: .125em;
+                }
+                list-style-type: none;
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: .75em;
+            }
+        }
+    }
+
+}
+
+.nav {
+	width: 100%;
+	background-color: @color-background-2;
+	position: fixed;
+	top: 0;
+}
+
+.footer {
+	width: 100%;
+	background-color: @color-background-2;
+	position: fixed;
+	bottom: 0;
+    text-align: center;
+
+    ul {
+        margin: .5em 0;
+        padding: 0;
+
+        li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 0 .5em;
+        }
+    }
+}

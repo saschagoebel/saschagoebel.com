@@ -1,8 +1,18 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
 root = true
 
+# General settings for all files
 [*]
 end_of_line = lf
 insert_final_newline = true
-charset = utf-8
-indent_style = tab
+trim_trailing_whitespace = true
+indent_style = space
 indent_size = 4
+charset = utf-8
+
+# HTML handling (minimize filesize and render problems)
+[*.html,*.jade,*.pug]
+indent_style = tab
+tab_width = 4
+insert_final_newline = false
