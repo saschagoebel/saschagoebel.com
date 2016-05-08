@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 
-import Metalsmith from 'metalsmith';
+import metalsmith from 'metalsmith';
 
 import buildDate from 'metalsmith-build-date';
 import define from 'metalsmith-define';
@@ -23,15 +23,15 @@ import brokenLinkChecker from 'metalsmith-broken-link-checker';
 
 import moment from 'moment';
 
-const m = Metalsmith(__dirname)
+const m = metalsmith(__dirname)
 .metadata({
-    sitemap: "sitemap.xml",
-    url: 'development' === process.env.NODE_ENV ? 'http://localhost:8080/' : 'http://saschagoebel.com/',
-    name: "Sascha Goebel",
-    owner: "Sascha Goebel",
-    description: "Sascha Goebel, IT-Berater und Programmierer",
+    sitemap: 'sitemap.xml',
+    url: 'development' === process.env.NODE_ENV ? 'http://localhost:8080/' : 'http://www.saschagoebel.com/',
+    name: 'Sascha Goebel',
+    owner: 'Sascha Goebel',
+    description: 'Sascha Goebel, IT-Berater und Programmierer',
     development: 'development' === process.env.NODE_ENV,
-    moment: moment
+    moment
 })
 .use(buildDate())
 .use(define({
@@ -56,11 +56,20 @@ const m = Metalsmith(__dirname)
 .use(layouts({
     engine: 'jade',
     default: 'layout.jade',
-    pattern: ['*.html'],
+    pattern: ['**/*.html'],
     pretty: 'development' === process.env.NODE_ENV
 }))
+// Delete less files after processing
+.use(function() {
+    return (files, metalsmith, done) => {
+        for (const file of Object.keys(files).filter(v => !!v.match(/\.less$/))) {
+            delete files[file];
+        }
+        done();
+    };
+}())
 .use(sitemap({
-    hostname: 'http://saschagoebel.com'
+    hostname: 'http://www.saschagoebel.com'
 }))
 .use(autoprefixer());
 
@@ -68,9 +77,9 @@ if ('development' === process.env.NODE_ENV) {
     m.use(serve())
     .use(watch({
         paths: {
-            "${source}/**/*": true, // every changed files will trigger a rebuild of themselves
-            "layouts/**/*": "**/*", // every templates changed will trigger a rebuild of all files
-            "public/**/*": "**/*", // every templates changed will trigger a rebuild of all files
+            '${source}/**/*': true, // every changed files will trigger a rebuild of themselves
+            'layouts/**/*': '**/*', // every templates changed will trigger a rebuild of all files
+            'public/**/*': '**/*' // every templates changed will trigger a rebuild of all files
         },
         livereload: true
     }));

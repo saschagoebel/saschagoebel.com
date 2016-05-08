@@ -1,0 +1,78 @@
+<h2>Gradient</h2>
+
+<h3>Current Limitations</h3>
+<ul>
+    <li>Ranges with only Min or Max are not supported yet.</li>
+</ul>
+
+<h3>Please change these values</h3>
+<label for="rangeMin">Range-Min:
+    <input id="rangeMin" type="number" value="150" /> Must be &lt; Range-Max
+</label><br /><br />
+
+<label for="rangeMax">Range-Max:
+    <input id="rangeMax" type="number" value="280" /> Must be &gt; Range-Min
+</label><br /><br />
+
+<label for="marker">Marker:
+    <input id="marker" type="number" value="210" /> Can be &lt; or &gt; Range
+</label><br /><br />
+
+<svg class="graph" viewBox="0 0 500 20">
+    <defs>
+        <linearGradient id="RangeGradient"
+             x1="0" y1="0" x2="100%" y2="0">
+            <stop offset="0%" stop-color="#FF0000" />
+            <stop offset="25%" stop-color="#FFFF00" />
+            <stop offset="50%" stop-color="#00FF00" />
+            <stop offset="75%" stop-color="#FFFF00" />
+            <stop offset="100%" stop-color="#FF0000" />
+        </linearGradient>
+    </defs>
+    <rect class="background" x="0" y="0" width="500" height="20" fill="#FF0000" />
+    <rect class="gradient" x="0" y="0" width="500" height="20" fill="url(#RangeGradient)" />
+    <rect class="marker" x="250" y="0" width="2" height="20" fill="#000000" stroke="#FFFFFF" stroke-width="1"/>
+</svg>
+
+<h3>Sourceode</h3>
+<textarea id="svg-source" style="width: 100%; height: 280px; " readonly="readonly">
+</textarea>
+
+<textarea id="js-source" style="width: 100%; height: 280px; " readonly="readonly">
+</textarea>
+
+<br /><br /><br />
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script id="update-script">
+$(document).ready(function() {
+
+    function mapRange(from, to, s) {
+        return to[0] + (s - from[0]) * (to[1] - to[0]) / (from[1] - from[0]);
+    };
+
+    function updateGraph() {
+        var min = $('#rangeMin').val();
+        var max = $('#rangeMax').val();
+        var marker = $('#marker').val();
+
+        var sourceRange = [
+            Math.min(min, marker),
+            Math.max(max, marker)
+        ];
+
+        var targetRange = [0, 500];
+
+        $('.graph .gradient').attr('x', mapRange(sourceRange, targetRange, min));
+        $('.graph .gradient').attr('width', mapRange(sourceRange, targetRange, max) - mapRange(targetRange, [0, 100], min))
+        $('.graph .marker').attr('x', mapRange(sourceRange, targetRange, marker));
+
+        $('#svg-source').text($('.graph')[0].outerHTML);
+    }
+
+    $('#rangeMin, #rangeMax, #marker').change(updateGraph);
+    updateGraph();
+
+    $('#js-source').text($('#update-script').html());
+})
+</script>

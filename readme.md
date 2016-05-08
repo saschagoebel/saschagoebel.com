@@ -17,10 +17,11 @@ npm start
 
 ## TODO:
 - ~~Format hCard~~
-- Google Analytics
-- Remove less file
+- ~~Google Analytics~~
+- ~~Remove less file~~
 - ~~google person markup~~
 - Update Profiles List & Update Profiles
+- Multilanguage (http://www.belenalbeza.com/building-a-static-multi-language-site-with-metalsmith-part-ii/)
 
 ### Topic Map / Net
 - JavaScript
