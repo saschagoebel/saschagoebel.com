@@ -2,15 +2,22 @@ import 'babel-polyfill';
 
 import metalsmith from 'metalsmith';
 
+import multiLanguage from 'metalsmith-multi-language';
 import buildDate from 'metalsmith-build-date';
-import define from 'metalsmith-define';
+import drafts from 'metalsmith-drafts';
+import collections from 'metalsmith-collections';
 import markdown from 'metalsmith-markdown';
-import jade from 'metalsmith-jade';
-import less from 'metalsmith-less';
+import pug from 'metalsmith-pug';
+import sass from 'metalsmith-sass';
 import assets from 'metalsmith-assets';
+import excerpts from 'metalsmith-excerpts';
+import prism from 'metalsmith-prism';
+import wordcount from 'metalsmith-word-count';
 import layouts from 'metalsmith-layouts';
 
+import googleAnalytics from 'metalsmith-google-analytics';
 import sitemap from 'metalsmith-mapsite';
+import feed from 'metalsmith-feed';
 import autoprefixer from 'metalsmith-autoprefixer';
 
 import serve from 'metalsmith-serve';
@@ -26,17 +33,17 @@ import moment from 'moment';
 const m = metalsmith(__dirname)
 .metadata({
     sitemap: 'sitemap.xml',
-    url: 'development' === process.env.NODE_ENV ? 'http://localhost:8080/' : 'http://www.saschagoebel.com/',
-    name: 'Sascha Goebel',
-    owner: 'Sascha Goebel',
-    description: 'Sascha Goebel, IT-Berater und Programmierer',
+    site: {
+        title: 'Sascha Göbel',
+        author: 'Sascha Göbel',
+        description: 'Sascha Göbel, IT-Berater und Programmierer',
+        url: 'development' === process.env.NODE_ENV ? 'http://localhost:8080/' : 'https://www.saschagoebel.com/'
+    },
     development: 'development' === process.env.NODE_ENV,
     moment
 })
 .use(buildDate())
-.use(define({
-    desc: 'test'
-}))
+.use(drafts())
 .use(markdown({
     gfm: true,
     tables: true,
@@ -44,33 +51,42 @@ const m = metalsmith(__dirname)
     smartLists: true,
     smartypants: true
 }))
-.use(jade({
+.use(pug({
     pretty: 'development' === process.env.NODE_ENV,
     locals: {
     }
 }))
-.use(less({
-    useDynamicSourceMap: 'development' === process.env.NODE_ENV
+.use(sass({
+    outputStyle: 'development' === process.env.NODE_ENV ? 'expanded' : 'compressed'
+}))
+.use(multiLanguage(
+    {
+        default: 'en',
+        locales: ['en', 'de']
+    }
+))
+.use(collections({
+    articles: {
+        sortBy: 'date',
+        reverse: true
+    }
 }))
 .use(assets())
+.use(excerpts())
+.use(wordcount())
+.use(prism())
+//.use((files, metalsmith, done) => { console.log(files['index.html'], metalsmith.metadata()); done(); })
 .use(layouts({
-    engine: 'jade',
-    default: 'layout.jade',
+    engine: 'pug',
+    default: 'layout.pug',
     pattern: ['**/*.html'],
     pretty: 'development' === process.env.NODE_ENV
 }))
-// Delete less files after processing
-.use(function() {
-    return (files, metalsmith, done) => {
-        for (const file of Object.keys(files).filter(v => !!v.match(/\.less$/))) {
-            delete files[file];
-        }
-        done();
-    };
-}())
+.use(googleAnalytics('UA-76786952-1'))
 .use(sitemap({
     hostname: 'http://www.saschagoebel.com'
 }))
+.use(feed({collection: 'articles'}))
 .use(autoprefixer());
 
 if ('development' === process.env.NODE_ENV) {
