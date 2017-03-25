@@ -103,7 +103,8 @@ if ('development' === process.env.NODE_ENV) {
 else {
     m.use(htmlMinifier())
     .use(cleanCss())
-    .use(brokenLinkChecker());
+    .use(brokenLinkChecker())
+    .use(htmlMinifier());
 }
 
 m.build(err => {
