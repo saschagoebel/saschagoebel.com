@@ -4,7 +4,7 @@ title: Impressum
 ## Angaben gemäß § 5 TMG:
 Sascha Göbel
 IT-Berater und Programmierer
-Federgrasweg 5
+Im Münchfeld 1
 55122 Mainz
 
 ## Kontakt:
@@ -17,7 +17,7 @@ DE 297 923 075
 
 ## Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
 Sascha Göbel
-Federgrasweg 5
+Im Münchfeld 1
 55122 Mainz
 
 ## Hinweis auf EU-Streitschlichtung
