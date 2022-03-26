@@ -1,20 +1,28 @@
-# Personal Homepage www.SaschaGoebel.com
+# www.saschagoebel.com
 
-## Development
-```sh
-npm run dev
+## Prerequisites
+```shell
+npm install -g html-minifier serve
 ```
 
-## Testing
-```sh
-npm test
+## Build & Test
+```shell
+html-minifier \
+  --input-dir ./src \
+  --output-dir ./dist \
+  --collapse-boolean-attributes \
+  --collapse-whitespace \
+  --collapse-inline-tag-whitespace \
+  --decode-entities \
+  --minify-css \
+  --minify-js \
+  --remove-attribute-quotes \
+  --remove-comments \
+  --remove-empty-attributes \
+  --remove-empty-elements \
+  --remove-redundant-attributes \
+  --sort-attributes \
+  --sort-class-name \
+  --use-short-doctype \
+&& serve ./dist
 ```
-
-## Production Build
-```sh
-npm start
-```
-
-## TODO:
-- Multilanguage (http://www.belenalbeza.com/building-a-static-multi-language-site-with-metalsmith-part-ii/)
-- References / Topics?
